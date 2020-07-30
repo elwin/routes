@@ -4,6 +4,7 @@ type position struct {
 	x, y float64
 }
 type route struct {
+	id        int64
 	positions []position
 }
 
@@ -13,7 +14,7 @@ func normalize(r []route, maxWidth, maxHeight float64) []route {
 	}
 
 	topLeft, bottomRight := bounds(flattenRoute(r))
-	offsetX := - topLeft.x
+	offsetX := -topLeft.x
 	offsetY := -topLeft.y
 	scaleX := maxWidth / (bottomRight.x - topLeft.x)
 	scaleY := maxHeight / (bottomRight.y - topLeft.y)
@@ -37,21 +38,21 @@ func normalize(r []route, maxWidth, maxHeight float64) []route {
 func bounds(positions []position) (topLeft, bottomRight position) {
 	topLeft, bottomRight = positions[0], positions[0]
 
-	for _, point := range positions {
-		if point.x < topLeft.x {
-			topLeft.x = point.x
+	for _, position := range positions {
+		if position.x < topLeft.x {
+			topLeft.x = position.x
 		}
 
-		if point.y < topLeft.y {
-			topLeft.y = point.y
+		if position.y < topLeft.y {
+			topLeft.y = position.y
 		}
 
-		if point.x > bottomRight.x {
-			bottomRight.x = point.x
+		if position.x > bottomRight.x {
+			bottomRight.x = position.x
 		}
 
-		if point.y > bottomRight.y {
-			bottomRight.y = point.y
+		if position.y > bottomRight.y {
+			bottomRight.y = position.y
 		}
 	}
 
@@ -65,4 +66,21 @@ func flattenRoute(r []route) []position {
 	}
 
 	return completePositions
+}
+
+func filter(r []route, ids ...int64) []route {
+	var newRoutes []route
+
+skip:
+	for _, route := range r {
+		for _, id := range ids {
+			if route.id == id {
+				continue skip
+			}
+		}
+
+		newRoutes = append(newRoutes, route)
+	}
+
+	return newRoutes
 }

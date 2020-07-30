@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/elwin/strava-go-api/v3/strava"
-	"github.com/fogleman/gg"
+	"github.com/spf13/pflag"
 	"github.com/twpayne/go-polyline"
 	"golang.org/x/oauth2"
 )
@@ -20,6 +20,14 @@ func main() {
 }
 
 func run(ctx context.Context) error {
+	configPath := pflag.StringP("config", "c", "config.yml", "Path of config file")
+	pflag.Parse()
+
+	conf, err := readConfig(*configPath)
+	if err != nil {
+		return err
+	}
+
 	scopes := []string{
 		"read",
 		"read_all",
@@ -29,14 +37,13 @@ func run(ctx context.Context) error {
 	}
 
 	oauthConf := oauth2.Config{
-		ClientID:     "***REMOVED***",
-		ClientSecret: "e13bd1b6799d074e354443129091ffe40e2add96",
+		ClientID:     conf.Strava.ID,
+		ClientSecret: conf.Strava.Secret,
 		Endpoint: oauth2.Endpoint{
-			AuthURL:   "https://www.strava.com/api/v3/oauth/authorize",
-			TokenURL:  "https://www.strava.com/api/v3/oauth/token",
-			AuthStyle: 0,
+			AuthURL:  "https://www.strava.com/api/v3/oauth/authorize",
+			TokenURL: "https://www.strava.com/api/v3/oauth/token",
 		},
-		RedirectURL: "http://localhost:3030/return",
+		RedirectURL: conf.Host + "/return",
 		Scopes:      []string{strings.Join(scopes, ",")},
 	}
 
@@ -72,47 +79,13 @@ func run(ctx context.Context) error {
 
 		conf := strava.NewConfiguration()
 		conf.HTTPClient = oauthConf.Client(ctx, tok)
-		client := strava.NewAPIClient(conf)
 
-		activites, _, err := client.ActivitiesApi.GetLoggedInAthleteActivities(ctx, nil)
-		if err != nil {
+		c := client{strava.NewAPIClient(conf)}
+		if err := c.heatMap(); err != nil {
 			return "", err
 		}
 
-		routes, err := convertActivitiesToRoutes(activites)
-		if err != nil {
-			return "", err
-		}
-
-		const height, width = 4096, 4096
-
-		routes = normalize(routes, width, height)
-
-		var out string
-
-		dc := gg.NewContext(width, height)
-		dc.SetRGB(0, 0, 0)
-		dc.Clear()
-		dc.SetRGB(1, 1, 1)
-
-		for _, route := range routes {
-			if len(route.positions) == 0 {
-				continue
-			}
-
-			current := route.positions[0]
-
-			for _, next := range route.positions[1:] {
-				dc.DrawLine(current.x, current.y, next.x, next.y)
-				dc.Stroke()
-
-				current = next
-			}
-		}
-
-		dc.SavePNG("out.png")
-
-		return out, nil
+		return "", nil
 	}))
 
 	return http.ListenAndServe(":3030", http.DefaultServeMux)
@@ -135,7 +108,10 @@ func convertActivitiesToRoutes(activities []strava.SummaryActivity) ([]route, er
 			positions = append(positions, position{x: coord[1], y: -coord[0]})
 		}
 
-		routes = append(routes, route{positions: positions})
+		routes = append(routes, route{
+			id:        activity.Id,
+			positions: positions,
+		})
 	}
 
 	return routes, nil
