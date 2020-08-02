@@ -1,0 +1,6 @@
+---
+host: http://localhost:3030
+
+strava:
+  id: 1234
+  secret: 1234abcd
