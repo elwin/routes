@@ -13,6 +13,7 @@ import (
 
 type client struct {
 	client *strava.APIClient
+	token  savedToken
 }
 
 func (c client) activities(ctx context.Context) ([]strava.SummaryActivity, error) {
@@ -42,6 +43,9 @@ func (c client) activities(ctx context.Context) ([]strava.SummaryActivity, error
 
 func (c client) heatMap(ctx context.Context, maxWidth, maxHeight int) ([]byte, error) {
 	activities, err := c.activities(ctx)
+	if err != nil {
+	    return nil, err
+	}
 
 	routes, err := convertActivitiesToRoutes(activities)
 	if err != nil {
@@ -120,7 +124,7 @@ func (c client) something(ctx context.Context) (strava.ActivityStats, error) {
 
 	stats, _, err := c.client.AthletesApi.GetStats(ctx, athlete.Id)
 	if err != nil {
-	    return strava.ActivityStats{}, err
+		return strava.ActivityStats{}, err
 	}
 
 	return stats, nil
