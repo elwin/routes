@@ -1,32 +1,57 @@
 package main
 
 import (
+	"context"
+
+	"github.com/antihax/optional"
 	"github.com/elwin/strava-go-api/v3/strava"
 	"github.com/fogleman/gg"
+	"github.com/pkg/errors"
+	"github.com/twpayne/go-polyline"
 )
 
-type client struct{
+type client struct {
 	client *strava.APIClient
 }
 
-func (c client) heatMap() error {
-	activities, _, err := c.client.ActivitiesApi.GetLoggedInAthleteActivities(ctx, nil)
-	if err != nil {
-		return err
+func (c client) activities(ctx context.Context) ([]strava.SummaryActivity, error) {
+	currentPage := 1
+
+	var result []strava.SummaryActivity
+
+	for {
+		options := &strava.ActivitiesApiGetLoggedInAthleteActivitiesOpts{
+			Page: optional.NewInt32(int32(currentPage)),
+		}
+		activities, _, err := c.client.ActivitiesApi.GetLoggedInAthleteActivities(ctx, options)
+		if err != nil {
+			return nil, err
+		}
+
+		if len(activities) == 0 {
+			break
+		}
+
+		result = append(result, activities...)
+		currentPage++
 	}
+
+	return result, nil
+}
+
+func (c client) heatMap(ctx context.Context, maxWidth, maxHeight int) error {
+	activities, err := c.activities(ctx)
 
 	routes, err := convertActivitiesToRoutes(activities)
 	if err != nil {
 		return err
 	}
 
-	routes = filter(routes, 3316687943, 2402178038, 1095821335)
+	// routes = filter(routes, 3316687943, 2402178038, 1095821335)
 
-	const height, width = 750, 1334
+	routes = normalize(routes, maxWidth, maxHeight)
 
-	routes = normalize(routes, width, height)
-
-	dc := gg.NewContext(width, height)
+	dc := gg.NewContext(maxWidth, maxHeight)
 	dc.SetRGB(0, 0, 0)
 	dc.Clear()
 	dc.SetRGBA(1, 1, 1, 0.8)
@@ -47,4 +72,36 @@ func (c client) heatMap() error {
 	}
 
 	return dc.SavePNG("out.png")
+}
+
+func convertActivitiesToRoutes(activities []strava.SummaryActivity) ([]route, error) {
+	var routes []route
+	for _, activity := range activities {
+
+		// skip activities without a tracked route
+		if activity.Map_.SummaryPolyline == "" {
+			continue
+		}
+
+		coords, _, err := polyline.DecodeCoords([]byte(activity.Map_.SummaryPolyline))
+		if err != nil {
+			return nil, errors.Wrap(err, "failed to decode coordinates")
+		}
+
+		var positions []position
+		for _, coord := range coords {
+			if len(coord) != 2 {
+				return nil, errors.Errorf("expected 2 coordinates (x, y), received %d", len(coord))
+			}
+
+			positions = append(positions, position{x: coord[1], y: -coord[0]})
+		}
+
+		routes = append(routes, route{
+			id:        activity.Id,
+			positions: positions,
+		})
+	}
+
+	return routes, nil
 }

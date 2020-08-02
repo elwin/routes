@@ -2,16 +2,19 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/elwin/strava-go-api/v3/strava"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/spf13/pflag"
-	"github.com/twpayne/go-polyline"
 	"golang.org/x/oauth2"
 )
+
+const height, width = 1000, 4000
 
 func main() {
 	if err := run(context.Background()); err != nil {
@@ -43,76 +46,73 @@ func run(ctx context.Context) error {
 			AuthURL:  "https://www.strava.com/api/v3/oauth/authorize",
 			TokenURL: "https://www.strava.com/api/v3/oauth/token",
 		},
-		RedirectURL: conf.Host + "/return",
+		RedirectURL: conf.Host + "/auth/redirect",
 		Scopes:      []string{strings.Join(scopes, ",")},
 	}
 
-	register := func() http.Handler {
+	e := echo.New()
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+	// e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
+	// 	return func(c echo.Context) error {
+	//
+	//
+	// 		return next(c)
+	// 	}
+	// })
+
+	e.GET("/", func(c echo.Context) error {
+		return c.Redirect(http.StatusTemporaryRedirect, "auth/register")
+	})
+
+	e.GET("auth/register", func(c echo.Context) error {
 		url := oauthConf.AuthCodeURL("state", oauth2.AccessTypeOffline)
 
-		return http.RedirectHandler(url, http.StatusSeeOther)
-	}
+		return c.Redirect(http.StatusSeeOther, url)
+	})
 
-	h := func(f func(r *http.Request) (string, error)) http.HandlerFunc {
-		return func(w http.ResponseWriter, r *http.Request) {
-			success, err := f(r)
-			if err != nil {
-				w.Write([]byte(err.Error()))
-				return
-			}
-
-			w.Write([]byte(success))
-		}
-	}
-
-	http.Handle("/", register())
-	http.HandleFunc("/return", h(func(r *http.Request) (s string, err error) {
-		code := r.URL.Query().Get("code")
-		if code == "" {
-
-		}
-
+	e.GET("auth/redirect", func(c echo.Context) error {
+		code := c.QueryParam("code")
 		tok, err := oauthConf.Exchange(ctx, code)
 		if err != nil {
-			return "", err
+			return err
 		}
 
 		conf := strava.NewConfiguration()
 		conf.HTTPClient = oauthConf.Client(ctx, tok)
 
-		c := client{strava.NewAPIClient(conf)}
-		if err := c.heatMap(); err != nil {
-			return "", err
+		stravaClient := client{strava.NewAPIClient(conf)}
+
+		if err := stravaClient.heatMap(c.Request().Context(), width, height); err != nil {
+			return err
 		}
 
-		return "", nil
-	}))
+		return c.String(http.StatusOK, "all good")
+	})
 
-	return http.ListenAndServe(":3030", http.DefaultServeMux)
+	// e.Use(session.Middleware(
+	// 	sessions.NewFilesystemStore("/tmp/sessions", []byte("secret"))),
+	// )
+
+	// e.GET("/session", func(c echo.Context) error {
+	// 	sess, err := session.Get("default", c)
+	// 	if err != nil {
+	// 		return err
+	// 	}
+	//
+	// 	if _, ok := sess.Values["token"]; !ok{
+	// 		return c.Redirect(http.StatusSeeOther, "/auth/register")
+	// 	}
+	//
+	// 	return nil
+	// })
+
+	return e.Start(":3030")
 }
 
-func convertActivitiesToRoutes(activities []strava.SummaryActivity) ([]route, error) {
-	var routes []route
-	for _, activity := range activities {
-		coords, _, err := polyline.DecodeCoords([]byte(activity.Map_.SummaryPolyline))
-		if err != nil {
-			return nil, err
-		}
-
-		var positions []position
-		for _, coord := range coords {
-			if len(coord) != 2 {
-				return nil, fmt.Errorf("expected 2 coordinates (x, y), received %d", len(coord))
-			}
-
-			positions = append(positions, position{x: coord[1], y: -coord[0]})
-		}
-
-		routes = append(routes, route{
-			id:        activity.Id,
-			positions: positions,
-		})
-	}
-
-	return routes, nil
+type savedToken struct {
+	AccessToken  string
+	Expiry       time.Time
+	RefreshToken string
+	TokenType    string
 }

@@ -8,7 +8,9 @@ type route struct {
 	positions []position
 }
 
-func normalize(r []route, maxWidth, maxHeight float64) []route {
+func normalize(r []route, maxWidth, maxHeight int) []route {
+	width, height := float64(maxWidth), float64(maxHeight)
+
 	if len(r) == 0 || len(r[0].positions) == 0 {
 		return r
 	}
@@ -16,8 +18,15 @@ func normalize(r []route, maxWidth, maxHeight float64) []route {
 	topLeft, bottomRight := bounds(flattenRoute(r))
 	offsetX := -topLeft.x
 	offsetY := -topLeft.y
-	scaleX := maxWidth / (bottomRight.x - topLeft.x)
-	scaleY := maxHeight / (bottomRight.y - topLeft.y)
+	scaleX := width / (bottomRight.x - topLeft.x)
+	scaleY := height / (bottomRight.y - topLeft.y)
+
+	// To keep the original dimensions, we just keep the lower scale
+	if scaleX < scaleY {
+		scaleY = scaleX
+	} else {
+		scaleX = scaleY
+	}
 
 	var newRoutes []route
 	for _, oldRoute := range r {
