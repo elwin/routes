@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 
 	"github.com/antihax/optional"
@@ -39,15 +40,15 @@ func (c client) activities(ctx context.Context) ([]strava.SummaryActivity, error
 	return result, nil
 }
 
-func (c client) heatMap(ctx context.Context, maxWidth, maxHeight int) error {
+func (c client) heatMap(ctx context.Context, maxWidth, maxHeight int) ([]byte, error) {
 	activities, err := c.activities(ctx)
 
 	routes, err := convertActivitiesToRoutes(activities)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	// routes = filter(routes, 3316687943, 2402178038, 1095821335)
+	routes = filter(routes, 3316687943, 2402178038, 1095821335)
 
 	routes = normalize(routes, maxWidth, maxHeight)
 
@@ -71,7 +72,12 @@ func (c client) heatMap(ctx context.Context, maxWidth, maxHeight int) error {
 		}
 	}
 
-	return dc.SavePNG("out.png")
+	buf := bytes.NewBuffer(nil)
+	if err := dc.EncodePNG(buf); err != nil {
+		return nil, err
+	}
+
+	return buf.Bytes(), nil
 }
 
 func convertActivitiesToRoutes(activities []strava.SummaryActivity) ([]route, error) {
@@ -104,4 +110,19 @@ func convertActivitiesToRoutes(activities []strava.SummaryActivity) ([]route, er
 	}
 
 	return routes, nil
+}
+
+func (c client) something(ctx context.Context) (strava.ActivityStats, error) {
+	athlete, _, err := c.client.AthletesApi.GetLoggedInAthlete(ctx)
+	if err != nil {
+		return strava.ActivityStats{}, err
+	}
+
+	stats, _, err := c.client.AthletesApi.GetStats(ctx, athlete.Id)
+	if err != nil {
+	    return strava.ActivityStats{}, err
+	}
+
+	return stats, nil
+
 }

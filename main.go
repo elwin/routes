@@ -2,19 +2,22 @@ package main
 
 import (
 	"context"
+	"encoding/gob"
 	"log"
 	"net/http"
 	"strings"
 	"time"
 
 	"github.com/elwin/strava-go-api/v3/strava"
+	"github.com/gorilla/sessions"
+	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/spf13/pflag"
 	"golang.org/x/oauth2"
 )
 
-const height, width = 1000, 4000
+const height, width = 4000, 4000
 
 func main() {
 	if err := run(context.Background()); err != nil {
@@ -31,81 +34,88 @@ func run(ctx context.Context) error {
 		return err
 	}
 
-	scopes := []string{
-		"read",
-		"read_all",
-		"activity:read",
-		"activity:read_all",
-		"profile:read_all",
-	}
-
-	oauthConf := oauth2.Config{
-		ClientID:     conf.Strava.ID,
-		ClientSecret: conf.Strava.Secret,
-		Endpoint: oauth2.Endpoint{
-			AuthURL:  "https://www.strava.com/api/v3/oauth/authorize",
-			TokenURL: "https://www.strava.com/api/v3/oauth/token",
-		},
-		RedirectURL: conf.Host + "/auth/redirect",
-		Scopes:      []string{strings.Join(scopes, ",")},
-	}
-
 	e := echo.New()
+	e.Debug = true
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
-	// e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
-	// 	return func(c echo.Context) error {
-	//
-	//
-	// 		return next(c)
-	// 	}
-	// })
+	e.Use(session.Middleware(sessions.NewFilesystemStore("/tmp/sessions", []byte("supersecret"))))
+
+	authorized := e.Group("/authorized", func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			s, err := defaultSession(c)
+			if err != nil {
+				return err
+			}
+
+			_, ok := s.Values["token"]
+			if !ok {
+				url := oauthConfig(conf).AuthCodeURL("state", oauth2.AccessTypeOffline)
+
+				return c.Redirect(http.StatusSeeOther, url)
+			}
+
+			return next(c)
+		}
+	})
 
 	e.GET("/", func(c echo.Context) error {
-		return c.Redirect(http.StatusTemporaryRedirect, "auth/register")
+		return c.Redirect(http.StatusTemporaryRedirect, "/authorized/")
 	})
 
-	e.GET("auth/register", func(c echo.Context) error {
-		url := oauthConf.AuthCodeURL("state", oauth2.AccessTypeOffline)
-
-		return c.Redirect(http.StatusSeeOther, url)
-	})
-
-	e.GET("auth/redirect", func(c echo.Context) error {
-		code := c.QueryParam("code")
-		tok, err := oauthConf.Exchange(ctx, code)
+	e.GET("/auth/redirect", func(c echo.Context) error {
+		s, err := defaultSession(c)
 		if err != nil {
 			return err
 		}
 
-		conf := strava.NewConfiguration()
-		conf.HTTPClient = oauthConf.Client(ctx, tok)
-
-		stravaClient := client{strava.NewAPIClient(conf)}
-
-		if err := stravaClient.heatMap(c.Request().Context(), width, height); err != nil {
+		code := c.QueryParam("code")
+		token, err := oauthConfig(conf).Exchange(ctx, code)
+		if err != nil {
 			return err
 		}
 
-		return c.String(http.StatusOK, "all good")
+		s.Values["token"] = savedToken{
+			AccessToken:  token.AccessToken,
+			Expiry:       token.Expiry,
+			RefreshToken: token.RefreshToken,
+			TokenType:    token.TokenType,
+		}
+		if err := s.Store().Save(c.Request(), c.Response(), s); err != nil {
+			return err
+		}
+
+		return c.Redirect(http.StatusSeeOther, "/authorized/")
 	})
 
-	// e.Use(session.Middleware(
-	// 	sessions.NewFilesystemStore("/tmp/sessions", []byte("secret"))),
-	// )
+	authorized.GET("/", func(c echo.Context) error {
+		client, err := newStravaClient(c, conf)
+		if err != nil {
+			return err
+		}
 
-	// e.GET("/session", func(c echo.Context) error {
-	// 	sess, err := session.Get("default", c)
-	// 	if err != nil {
-	// 		return err
-	// 	}
-	//
-	// 	if _, ok := sess.Values["token"]; !ok{
-	// 		return c.Redirect(http.StatusSeeOther, "/auth/register")
-	// 	}
-	//
-	// 	return nil
-	// })
+		athlete, err := client.something(c.Request().Context())
+		if err != nil {
+		    return  err
+		}
+
+		return c.JSON(http.StatusOK, athlete)
+	})
+
+	authorized.GET("/image", func(c echo.Context) error {
+		client, err := newStravaClient(c, conf)
+		if err != nil {
+			return err
+		}
+
+		img, err := client.heatMap(c.Request().Context(), width, height)
+		if err != nil {
+			return err
+		}
+
+		return c.Blob(http.StatusOK, "image/png", img)
+	})
+
+	gob.Register(savedToken{})
 
 	return e.Start(":3030")
 }
@@ -115,4 +125,48 @@ type savedToken struct {
 	Expiry       time.Time
 	RefreshToken string
 	TokenType    string
+}
+
+func defaultSession(c echo.Context) (*sessions.Session, error) {
+	return session.Get("default", c)
+}
+
+func newStravaClient(c echo.Context, conf config) (client, error) {
+	s, err := defaultSession(c)
+	if err != nil {
+		return client{}, err
+	}
+
+	token := s.Values["token"].(savedToken)
+
+	clientConfig := strava.NewConfiguration()
+	clientConfig.HTTPClient = oauthConfig(conf).Client(c.Request().Context(), &oauth2.Token{
+		AccessToken:  token.AccessToken,
+		TokenType:    token.TokenType,
+		RefreshToken: token.RefreshToken,
+		Expiry:       token.Expiry,
+	})
+
+	return client{strava.NewAPIClient(clientConfig)}, nil
+}
+
+func oauthConfig(conf config) *oauth2.Config {
+	scopes := []string{
+		"read",
+		"read_all",
+		"activity:read",
+		"activity:read_all",
+		"profile:read_all",
+	}
+
+	return &oauth2.Config{
+		ClientID:     conf.Strava.ID,
+		ClientSecret: conf.Strava.Secret,
+		Endpoint: oauth2.Endpoint{
+			AuthURL:  "https://www.strava.com/api/v3/oauth/authorize",
+			TokenURL: "https://www.strava.com/api/v3/oauth/token",
+		},
+		RedirectURL: conf.Host + "/auth/redirect",
+		Scopes:      []string{strings.Join(scopes, ",")},
+	}
 }
