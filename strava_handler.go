@@ -54,6 +54,22 @@ func (a *app) imageHandler(c echo.Context) error {
 	return c.Blob(http.StatusOK, "image/png", image)
 }
 
+func (a *app) temporaryImageHandler(c echo.Context) error {
+	client, err := newStravaClient(c, a.conf)
+	if err != nil {
+		return err
+	}
+
+	width, height := 1000, 1000
+
+	image, err := client.heatMap(c.Request().Context(), width, height)
+	if err != nil {
+		return err
+	}
+
+	return c.Blob(http.StatusOK, "image/png", image)
+}
+
 func (a *app) enableHandler(c echo.Context) error {
 	client, err := newStravaClient(c, a.conf)
 	if err != nil {

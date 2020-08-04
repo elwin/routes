@@ -1,5 +1,7 @@
 ---
 host: http://localhost:3030
+debug: true
+sessions: /var/run/heatmap
 
 strava:
   id: 1234

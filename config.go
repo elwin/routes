@@ -7,8 +7,10 @@ import (
 )
 
 type config struct {
-	Host   string `yaml:"host"`
-	Strava struct {
+	Host             string `yaml:"host"`
+	SessionDirectory string `yaml:"sessions"`
+	Debug            bool   `yaml:"debug"`
+	Strava           struct {
 		ID     string `yaml:"id"`
 		Secret string `yaml:"secret"`
 	} `yaml:"strava"`
@@ -17,7 +19,7 @@ type config struct {
 func readConfig(path string) (config, error) {
 	f, err := os.Open(path)
 	if err != nil {
-	    return config{}, err
+		return config{}, err
 	}
 
 	var c config

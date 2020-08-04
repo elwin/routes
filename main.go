@@ -51,10 +51,10 @@ func run() error {
 	gob.Register(savedToken{})
 
 	e := echo.New()
-	e.Debug = true
+	e.Debug = conf.Debug
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
-	e.Use(session.Middleware(sessions.NewFilesystemStore("/tmp/sessions", []byte("supersecret"))))
+	e.Use(session.Middleware(sessions.NewFilesystemStore(conf.SessionDirectory, []byte("supersecret"))))
 
 	e.GET("/", app.redirect("/authorized/"))
 	e.GET("/auth/redirect", app.callbackHandler)
@@ -62,6 +62,7 @@ func run() error {
 
 	authorized := e.Group("/authorized", app.oauthMiddleware)
 	authorized.GET("/", app.athleteInfo)
+	authorized.GET("/image", app.temporaryImageHandler)
 	authorized.GET("/enable", app.enableHandler)
 
 	return e.Start(":3030")

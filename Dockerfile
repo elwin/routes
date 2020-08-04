@@ -4,4 +4,4 @@ COPY heatmap /heatmap
 
 RUN chmod +x /heatmap
 
-CMD ["/heatmap"]
+CMD ["/heatmap", "--config", "/config.yml"]
