@@ -41,7 +41,7 @@ func (c client) activities(ctx context.Context) ([]strava.SummaryActivity, error
 	return result, nil
 }
 
-func (c client) heatMap(ctx context.Context, maxWidth, maxHeight int) ([]byte, error) {
+func (c client) heatMap(ctx context.Context, maxWidth, maxHeight int, omit []int64) ([]byte, error) {
 	activities, err := c.activities(ctx)
 	if err != nil {
 	    return nil, err
@@ -52,7 +52,7 @@ func (c client) heatMap(ctx context.Context, maxWidth, maxHeight int) ([]byte, e
 		return nil, err
 	}
 
-	routes = filter(routes, 3316687943, 2402178038, 1095821335)
+	routes = filter(routes, omit...)
 
 	routes = normalize(routes, maxWidth, maxHeight)
 

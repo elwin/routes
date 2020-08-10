@@ -25,9 +25,12 @@ func (a *app) athleteInfo(c echo.Context) error {
 
 func (a *app) imageHandler(c echo.Context) error {
 	id := c.Param("id")
-	fileType := c.QueryParam("type")
 	width := intQuery(c, "width", defaultWidth)
 	height := intQuery(c, "height", defaultHeight)
+	omitted, err := intSliceQuery(c, "omit")
+	if err != nil {
+	    return  err
+	}
 
 	token, ok := a.db.maps[id]
 	if !ok {
@@ -38,15 +41,12 @@ func (a *app) imageHandler(c echo.Context) error {
 		return errors.New("height and width must not exceed 10000")
 	}
 
-	if fileType != "png" {
-		return echo.ErrNotFound
-	}
 	client, err := newStravaClientFromToken(c.Request().Context(), token, a.conf)
 	if err != nil {
 		return err
 	}
 
-	image, err := client.heatMap(c.Request().Context(), width, height)
+	image, err := client.heatMap(c.Request().Context(), width, height, omitted)
 	if err != nil {
 		return err
 	}
@@ -60,9 +60,14 @@ func (a *app) temporaryImageHandler(c echo.Context) error {
 		return err
 	}
 
-	width, height := 1000, 1000
+	width, height := 10000, 10000
 
-	image, err := client.heatMap(c.Request().Context(), width, height)
+	omitted, err := intSliceQuery(c, "omit")
+	if err != nil {
+		return  err
+	}
+
+	image, err := client.heatMap(c.Request().Context(), width, height, omitted)
 	if err != nil {
 		return err
 	}
@@ -95,4 +100,20 @@ func intQuery(c echo.Context, name string, defaultValue int) int {
 	}
 
 	return val
+}
+
+func intSliceQuery(c echo.Context, name string) ([]int64, error) {
+	var omitted []int64
+
+	omittedString := c.QueryParams()["omit"]
+	for _, activity := range omittedString {
+		i, err := strconv.ParseInt(activity, 10, 64)
+		if err != nil {
+			return nil, err
+		}
+
+		omitted = append(omitted, i)
+	}
+
+	return omitted, nil
 }
