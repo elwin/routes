@@ -1,2 +1,4 @@
 config.yml
 heatmap
+node_modules
+compiled.css

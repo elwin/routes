@@ -9,3 +9,6 @@ build:
 release: build
 	docker tag $(REPOSITORY) $(REGISTRY)/$(REPOSITORY)/$(REPOSITORY):$(VERSION)
 	docker push $(REGISTRY)/$(REPOSITORY)/$(REPOSITORY):$(VERSION)
+
+styles:
+	postcss resources/styles.css -o resources/compiled.css

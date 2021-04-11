@@ -4,19 +4,12 @@ go 1.14
 
 require (
 	github.com/antihax/optional v1.0.0
-	github.com/antonlindstrom/pgstore v0.0.0-20200229204646-b08ebf1105e0 // indirect
-	github.com/boj/redistore v0.0.0-20180917114910-cd5dcc76aeff // indirect
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/elwin/strava-go-api/v3 v3.0.2
 	github.com/fogleman/gg v1.3.0
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
 	github.com/gorilla/sessions v1.2.0
-	github.com/ipfans/echo-session v3.2.0+incompatible // indirect
-	github.com/labstack/echo v3.3.10+incompatible
 	github.com/labstack/echo-contrib v0.9.0
 	github.com/labstack/echo/v4 v4.1.16
-	github.com/labstack/gommon v0.3.0 // indirect
-	github.com/lib/pq v1.8.0 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.6.1
