@@ -8,7 +8,7 @@ import (
 
 func (a *app) indexHandler(c echo.Context) error {
 
-	return c.Render(http.StatusOK, "index.html", nil)
+	return c.Render(http.StatusOK, "dashboard.gohtml", nil)
 
 	// return c.JSON(200, "yo")
 

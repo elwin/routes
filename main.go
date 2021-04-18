@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"path/filepath"
 	"time"
 
 	"github.com/elwin/strava-go-api/v3/strava"
@@ -38,11 +39,11 @@ func (a *app) redirect(path string) echo.HandlerFunc {
 }
 
 type Template struct {
-	templates *template.Template
+	templates map[string]*template.Template
 }
 
 func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	return t.templates.ExecuteTemplate(w, name, data)
+	return t.templates["resources/" + name].ExecuteTemplate(w, "base", data)
 }
 
 func run() error {
@@ -62,21 +63,46 @@ func run() error {
 
 	e := echo.New()
 	e.Debug = conf.Debug
-	e.Renderer = &Template{
-		templates: template.Must(template.ParseGlob("resources/*.html")),
+
+	layouts, err := filepath.Glob("resources/layouts/*.gohtml")
+	if err != nil {
+		return err
 	}
+
+	t := &Template{templates: map[string]*template.Template{}}
+
+	e.Renderer = t
+
+
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
-	e.Use(session.Middleware(sessions.NewFilesystemStore(conf.SessionDirectory, []byte("supersecret"))))
+	e.Use(session.Middleware(sessions.NewCookieStore([]byte("secret"))))
+	// e.Use(session.Middleware(sessions.NewFilesystemStore(conf.SessionDirectory, []byte("supersecret"))))
 	e.Static("resources", "resources")
 
-	e.GET("/dashboard", app.indexHandler)
+	e.Use(func(handlerFunc echo.HandlerFunc) echo.HandlerFunc {
+		files, err := filepath.Glob("resources/*.gohtml")
+		if err != nil {
+			return echo.MethodNotAllowedHandler
+		}
+
+		for _, f := range files {
+			t.templates[f] = template.Must(template.ParseFiles(append([]string{f}, layouts...)...))
+		}
+
+		return handlerFunc
+	})
+
+	// e.GET("/dashboard", app.indexHandler)
+	e.GET("/login", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "login.gohtml", nil)
+	})
 	e.GET("/", app.redirect("/authorized/"))
 	e.GET("/auth/redirect", app.callbackHandler)
 	e.GET("/generated/:id", app.imageHandler)
 
 	authorized := e.Group("/authorized", app.oauthMiddleware)
-	authorized.GET("/", app. athleteInfo)
+	authorized.GET("/", app.athleteInfo)
 	authorized.GET("/image", app.temporaryImageHandler)
 	authorized.GET("/enable", app.enableHandler)
 
