@@ -1,7 +1,7 @@
-FROM alpine:3.7
+FROM golang:1.16.5 AS BUILD
+COPY . /app
+RUN cd /app && go build
 
-COPY heatmap /heatmap
-
-RUN chmod +x /heatmap
-
-CMD ["/heatmap", "--config", "/config.yml"]
+FROM gcr.io/distroless/base
+COPY --from=BUILD /app/api /app
+CMD ["/app"]

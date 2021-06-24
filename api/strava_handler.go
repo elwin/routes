@@ -1,11 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 
-	"github.com/elwin/heatmap/random"
+	"github.com/elwin/heatmap/api/random"
 	"github.com/labstack/echo/v4"
 	"github.com/pkg/errors"
 )
@@ -21,11 +20,7 @@ func (a *app) athleteInfo(c echo.Context) error {
 		return err
 	}
 
-	fmt.Print(athlete)
-
-	return c.Render(http.StatusOK, "dashboard.gohtml", "asdf")
-
-	// return c.JSON(http.StatusOK, athlete)
+	return c.JSON(http.StatusOK, athlete)
 }
 
 func (a *app) imageHandler(c echo.Context) error {

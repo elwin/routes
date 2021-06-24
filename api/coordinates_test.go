@@ -35,26 +35,26 @@ func Test_normalize(t *testing.T) {
 	tests := []struct {
 		in        []route
 		out       []route
-		maxWidth  float64
-		maxHeight float64
+		maxWidth  int
+		maxHeight int
 	}{
 		{
 			[]route{
-				{[]position{
+				{0, []position{
 					{0 + 50, 0 + 50},
 					{10 + 50, 10 + 50},
 				}},
-				{[]position{
+				{0, []position{
 					{100 + 50, 90 + 50},
 					{100 + 50, 100 + 50},
 				}},
 			},
 			[]route{
-				{[]position{
+				{0, []position{
 					{0, 0},
 					{1, 1},
 				}},
-				{[]position{
+				{0, []position{
 					{10, 9},
 					{10, 10},
 				}},

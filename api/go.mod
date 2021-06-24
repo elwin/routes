@@ -1,4 +1,4 @@
-module github.com/elwin/heatmap
+module github.com/elwin/heatmap/api
 
 go 1.14
 

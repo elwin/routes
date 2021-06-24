@@ -3,8 +3,6 @@ package main
 import (
 	"context"
 	"encoding/gob"
-	"html/template"
-	"io"
 	"log"
 	"net/http"
 	"time"
@@ -37,14 +35,6 @@ func (a *app) redirect(path string) echo.HandlerFunc {
 	}
 }
 
-type Template struct {
-	templates map[string]*template.Template
-}
-
-func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	return t.templates["resources/" + name].ExecuteTemplate(w, "base", data)
-}
-
 func run() error {
 	configPath := pflag.StringP("config", "c", "config.yml", "Path of config file")
 	pflag.Parse()
@@ -68,7 +58,6 @@ func run() error {
 	e.Use(session.Middleware(sessions.NewCookieStore([]byte("secret"))))
 
 
-	e.GET("/", app.redirect("/authorized/"))
 	e.GET("/auth/redirect", app.callbackHandler)
 	e.GET("/generated/:id", app.imageHandler)
 
