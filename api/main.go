@@ -7,7 +7,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"path/filepath"
 	"time"
 
 	"github.com/elwin/strava-go-api/v3/strava"
@@ -64,39 +63,11 @@ func run() error {
 	e := echo.New()
 	e.Debug = conf.Debug
 
-	layouts, err := filepath.Glob("resources/layouts/*.gohtml")
-	if err != nil {
-		return err
-	}
-
-	t := &Template{templates: map[string]*template.Template{}}
-
-	e.Renderer = t
-
-
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	e.Use(session.Middleware(sessions.NewCookieStore([]byte("secret"))))
-	// e.Use(session.Middleware(sessions.NewFilesystemStore(conf.SessionDirectory, []byte("supersecret"))))
-	e.Static("resources", "resources")
 
-	e.Use(func(handlerFunc echo.HandlerFunc) echo.HandlerFunc {
-		files, err := filepath.Glob("resources/*.gohtml")
-		if err != nil {
-			return echo.MethodNotAllowedHandler
-		}
 
-		for _, f := range files {
-			t.templates[f] = template.Must(template.ParseFiles(append([]string{f}, layouts...)...))
-		}
-
-		return handlerFunc
-	})
-
-	// e.GET("/dashboard", app.indexHandler)
-	e.GET("/login", func(c echo.Context) error {
-		return c.Render(http.StatusOK, "login.gohtml", nil)
-	})
 	e.GET("/", app.redirect("/authorized/"))
 	e.GET("/auth/redirect", app.callbackHandler)
 	e.GET("/generated/:id", app.imageHandler)
