@@ -5,6 +5,12 @@ export default function Dashboard() {
     return (
         <Master title="Map">
 
+            <div className="bg-white overflow-hidden shadow rounded-lg">
+                <div className="">
+                    <img src="/map.png" alt=""/>
+                </div>
+            </div>
+
         </Master>
     )
 }

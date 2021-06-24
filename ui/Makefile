@@ -1,10 +1,11 @@
-REGISTRY=docker.pkg.github.com/elwin
-REPOSITORY=heatmap-ui
+REGISTRY=ghcr.io/elwin
+REPOSITORY=heatmap
+NAME=heatmap-ui
 VERSION=latest
 
 build:
-	docker build . -t $(REPOSITORY)
+	docker build . -t $(NAME)
 
 release: build
-	docker tag $(REPOSITORY) $(REGISTRY)/$(REPOSITORY)/$(REPOSITORY):$(VERSION)
-	docker push $(REGISTRY)/$(REPOSITORY)/$(REPOSITORY):$(VERSION)
+	docker tag $(NAME) $(REGISTRY)/$(REPOSITORY)/$(NAME):$(VERSION)
+	docker push $(REGISTRY)/$(REPOSITORY)/$(NAME):$(VERSION)
