@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strings"
 
+	app2 "github.com/elwin/heatmap/api/app"
 	"github.com/labstack/echo/v4"
 	"golang.org/x/oauth2"
 )
@@ -51,7 +52,7 @@ func (a *app) oauthMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	}
 }
 
-func oauthConfig(conf config) *oauth2.Config {
+func oauthConfig(conf app2.config) *oauth2.Config {
 	scopes := []string{
 		"read",
 		"read_all",

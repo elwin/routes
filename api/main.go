@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"time"
 
+	app2 "github.com/elwin/heatmap/api/app"
+	strava2 "github.com/elwin/heatmap/api/strava"
 	"github.com/elwin/strava-go-api/v3/strava"
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo-contrib/session"
@@ -25,7 +27,7 @@ func main() {
 }
 
 type app struct {
-	conf config
+	conf app2.config
 	db   *memoryDB
 }
 
@@ -39,7 +41,7 @@ func run() error {
 	configPath := pflag.StringP("config", "c", "config.yml", "Path of config file")
 	pflag.Parse()
 
-	conf, err := readConfig(*configPath)
+	conf, err := app2.readConfig(*configPath)
 	if err != nil {
 		return err
 	}
@@ -80,10 +82,10 @@ func defaultSession(c echo.Context) (*sessions.Session, error) {
 	return session.Get("default", c)
 }
 
-func newStravaClient(c echo.Context, conf config) (client, error) {
+func newStravaClient(c echo.Context, conf app2.config) (strava2.client, error) {
 	s, err := defaultSession(c)
 	if err != nil {
-		return client{}, err
+		return strava2.client{}, err
 	}
 
 	token := s.Values["token"].(savedToken)
@@ -91,7 +93,7 @@ func newStravaClient(c echo.Context, conf config) (client, error) {
 	return newStravaClientFromToken(c.Request().Context(), token, conf)
 }
 
-func newStravaClientFromToken(ctx context.Context, token savedToken, conf config) (client, error) {
+func newStravaClientFromToken(ctx context.Context, token savedToken, conf app2.config) (strava2.client, error) {
 	clientConfig := strava.NewConfiguration()
 	clientConfig.HTTPClient = oauthConfig(conf).Client(ctx, &oauth2.Token{
 		AccessToken:  token.AccessToken,
@@ -100,7 +102,7 @@ func newStravaClientFromToken(ctx context.Context, token savedToken, conf config
 		Expiry:       token.Expiry,
 	})
 
-	return client{
+	return strava2.client{
 		client: strava.NewAPIClient(clientConfig),
 		token:  token,
 	}, nil

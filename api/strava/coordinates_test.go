@@ -1,4 +1,4 @@
-package main
+package strava
 
 import (
 	"testing"
@@ -8,19 +8,19 @@ import (
 
 func Test_bounds(t *testing.T) {
 	tests := []struct {
-		in          []position
-		topLeft     position
-		bottomRight position
+		in          []Position
+		topLeft     Position
+		bottomRight Position
 	}{
 		{
-			[]position{
+			[]Position{
 				{1, 1},
 				{4, 9},
 				{6, 3},
 				{9, 3},
 			},
-			position{1, 1},
-			position{9, 9},
+			Position{1, 1},
+			Position{9, 9},
 		},
 	}
 
@@ -33,28 +33,28 @@ func Test_bounds(t *testing.T) {
 
 func Test_normalize(t *testing.T) {
 	tests := []struct {
-		in        []route
-		out       []route
+		in        []Route
+		out       []Route
 		maxWidth  int
 		maxHeight int
 	}{
 		{
-			[]route{
-				{0, []position{
+			[]Route{
+				{0, []Position{
 					{0 + 50, 0 + 50},
 					{10 + 50, 10 + 50},
 				}},
-				{0, []position{
+				{0, []Position{
 					{100 + 50, 90 + 50},
 					{100 + 50, 100 + 50},
 				}},
 			},
-			[]route{
-				{0, []position{
+			[]Route{
+				{0, []Position{
 					{0, 0},
 					{1, 1},
 				}},
-				{0, []position{
+				{0, []Position{
 					{10, 9},
 					{10, 10},
 				}},

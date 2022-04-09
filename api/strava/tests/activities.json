@@ -1,0 +1,384 @@
+[
+ {
+  "id": 6931660621,
+  "external_id": "garmin_push_8581332994",
+  "upload_id": 7376000840,
+  "athlete": {
+   "id": ***REMOVED***
+  },
+  "name": "Night Ride",
+  "distance": 3618.4,
+  "moving_time": 530,
+  "elapsed_time": 545,
+  "total_elevation_gain": 17,
+  "elev_high": 535,
+  "elev_low": 472.7,
+  "type": "Ride",
+  "start_date": "2022-04-04T19:16:00Z",
+  "start_date_local": "2022-04-04T21:16:00Z",
+  "timezone": "(GMT+01:00) Europe/Zurich",
+  "start_latlng": [
+   47.40551,
+   8.505269
+  ],
+  "end_latlng": [
+   47.40063,
+   8.544803
+  ],
+  "achievement_count": 1,
+  "athlete_count": 1,
+  "map": {
+   "id": "a6931660621",
+   "summary_polyline": "yai`Hiz|r@dCwCdD}C`AwAr@mBb@gCZgCLyCCoBKeAs@cFiAwJ[gFCeDNeDLqATkAjBaH^cBFa@FcA?iCCiCBcBDaAJaAVaB`BiIb@gCDa@JmBBoBGmBu@sJD_@FK^a@N_@Dc@@c@Ck@UsBOwBG_DKsB{@cJ?e@SaCg@yDGaA_@iD"
+  },
+  "private": true,
+  "upload_id_str": "7376000840",
+  "average_speed": 6.827,
+  "max_speed": 16.192,
+  "gear_id": "b8936322",
+  "kilojoules": 57.5,
+  "average_watts": 108.5
+ },
+ {
+  "id": 6931122616,
+  "external_id": "garmin_push_8580693211",
+  "upload_id": 7375428413,
+  "athlete": {
+   "id": ***REMOVED***
+  },
+  "name": "Work to Home Ride",
+  "distance": 16869.9,
+  "moving_time": 2917,
+  "elapsed_time": 4067,
+  "total_elevation_gain": 154.2,
+  "elev_high": 517.8,
+  "elev_low": 412.1,
+  "type": "Ride",
+  "start_date": "2022-04-04T16:13:15Z",
+  "start_date_local": "2022-04-04T18:13:15Z",
+  "timezone": "(GMT+01:00) Europe/Zurich",
+  "start_latlng": [
+   47.310192,
+   8.543641
+  ],
+  "end_latlng": [
+   47.41371,
+   8.5070305
+  ],
+  "achievement_count": 17,
+  "kudos_count": 11,
+  "athlete_count": 1,
+  "total_photo_count": 1,
+  "map": {
+   "id": "a6931122616",
+   "summary_polyline": "a|w_Hykcs@}A\\aA^eBj@wAZs@XYHYAQGy@g@k@Ew@RqB|@[FG[Es@IQYMw@HqBb@yARqAb@wAz@_At@{Av@oAXmFKy@KwBOgCE{A@iFhByCn@a@ViBj@aBV_@L{EnBsCdAkBl@uCf@oC|@QJE?KQKYMMEAsB`Ca@Z_@b@oAzBq@t@mB`BaFdDeEnBkAdAsDfEkAz@aAXg@JoGhAmHhAsBx@sA`Aa@DcA]WDOZKj@Wt@gBbDILwAtAyAj@yBj@gBz@]TaFxE]VQXGx@CPOXiCxDm@r@U^?P@HdA`CPh@ENiBdCOE]u@SQE@ANRv@CVOTSl@yJbQGBECg@{BEKGEWFSEK]eAyEqAcFeAsE}@mBQMQF_@?m@VeDsCa@BkAZeAPuBPm@DeD?cBRaATCHPGLBDHA@AEEFUJc@?kBb@y@Vg@Tw@N[LoAZ_BNW?e@E[J]R_AVoBXaEb@m@@}BJ[CqBm@UK@Bd@JVNZHDADBmASMB_Aw@s@KECs@O}BeAWS[[_@k@{BiCg@q@aJqOUu@eBaDmB_CmBkCcAoA_@Y[_@SKIA]So@SgAs@o@o@I_@OYy@w@SWNm@E[EKqAcBOGE@Wr@[LU?WG_@Sc@MSNEAsHgHwBkCESFo@A[E]Sg@oAaA}AkBIYj@eBLWHATqAJ_APoAPs@C]gAm@UYCcB@a@E{@?e@FuBHyAFuDBUFWNUPKl@SHWC[EGGEc@KUYWs@QEuADsATg@?oADwAT]k@KCi@@s@C]Bu@XwATOAaAR{Ej@{@FYH_ADa@JuALyEbAiAj@{ClBeB~@aBbAiCpAwBbAkEdAwAp@gA`@yAl@uA^YIOBwCxCWNSFa@Hy@@gAWgAOm@G_BEi@OkBk@oAe@wBaAq@Us@zACL@?NU^_A@MEMwA}@yAq@{A_AsDuBa@]{AeA{CiBGIm@cAQG_@BUIa@c@iC}ECUBGDETAj@c@EbAk@ZARLj@Rl@PXv@`Bt@jATVJRrA|@R\\XjD`@hDHlAF~BEVGN?HeAdAiApA}AnAk@^o@r@k@^uEjE{A|A_@TcA|@wAxAiE|DoBnBk@d@gEdEoI~HoAtAoJ`LyDtGkAxB[b@gBtDSVMVwCzJuExNMx@Ed@k@tCE`@BXJPJHn@^j@t@nCtEn@hAFRLf@Fj@H|ABvARlDJp@t@dDZ~A"
+  },
+  "workout_type": 10,
+  "upload_id_str": "7375428413",
+  "average_speed": 5.783,
+  "max_speed": 11.906,
+  "gear_id": "b8936315",
+  "kilojoules": 286.7,
+  "average_watts": 98.3
+ },
+ {
+  "id": 6930051833,
+  "external_id": "garmin_push_8579360822",
+  "upload_id": 7374270605,
+  "athlete": {
+   "id": ***REMOVED***
+  },
+  "name": "Work-ride",
+  "distance": 12584.5,
+  "moving_time": 2295,
+  "elapsed_time": 2887,
+  "total_elevation_gain": 125.2,
+  "elev_high": 517.4,
+  "elev_low": 409.1,
+  "type": "Ride",
+  "start_date": "2022-04-04T06:35:00Z",
+  "start_date_local": "2022-04-04T08:35:00Z",
+  "timezone": "(GMT+01:00) Europe/Zurich",
+  "start_latlng": [
+   47.400517,
+   8.544289
+  ],
+  "end_latlng": [
+   47.310104,
+   8.543404
+  ],
+  "achievement_count": 6,
+  "kudos_count": 8,
+  "athlete_count": 1,
+  "total_photo_count": 1,
+  "map": {
+   "id": "a6930051833",
+   "summary_polyline": "ufh`Hcdcs@dJjF~ChAdCv@V`@Nn@BzBNj@\\h@TKf@_@p@_@zA_@vBgAh@EHRFz@?dAFpA?fACRB^Jh@EF@LJBDTAC|AJfE@bCE`ADZG^DR^n@?f@^t@r@l@r@fA`Bn@hAfBjCf@|@hFxHRf@Cp@NZPHdANxAjA~BrB`B`BlAx@fAdAJXARFLp@PfGzBHLHZI~@Qr@uA|Cm@lA?RDVLj@Nd@Th@J^b@d@JVdAdAv@p@z@bA`ApApAtAZVlAt@pAz@ZNf@RtA~@j@TfAr@h@Jr@^f@XXXf@R~@p@p@Z\\HDI?MR}AXw@P@PV^lAr@`B\\zAb@tAvB`FFHXTDCFGTc@z@kAbFwGx@m@zAoA\\m@Gq@HWnEoF\\m@L]r@m@pAuA^UAADAVPjAlA\\Xb@?PTDMDe@bBoD~@cBNOjB`CrAbA|@l@|@J`Ab@~@Z`DHl@FJEnAEh@BpACLAzA[t@AVOVGj@?TG`@SVY~@?TEFGt@KZAd@KZKVOh@MbAWz@Kx@UR@|AMpA]VApAUvCG~DW\\@b@Ih@YJ?\\Gf@Qd@BdAbAT\\\\rAVa@J?FGHB`AvBr@bDb@`BNv@vAxFXx@TdATDTCBDd@pBJRB@BCTm@HEj@_AfHmMv@yA?IQq@DSF?BBl@bAFA|AaCL_@uAiDAM@M\\q@b@i@zCuEL{@RYbA{@x@{@hC{BfBiAjEsA^Mj@c@RSdA_BZ[d@iAx@{APIhARl@DFe@LSt@k@z@]dGmAxCe@n@Sv@Sb@E^MrAS^MhAo@VQ|AcB`A{AVWz@q@x@i@p@Up@]ZIVQj@i@x@c@hCeBbBuAt@aAzAcCl@e@pByBB?DDR^HHH@rBs@r@S|@M~A_@lEqAzAi@h@a@jAk@dA[d@E\\KnAKzBaAtD}@`AWpAc@hA[|CJjB@rAT`CBvAFV?l@Ij@SjAm@|@o@bAo@bAg@hA[fAKrCe@P?THDJFj@DLFHPHl@QvAk@h@KV?V@TH\\PZH\\@XE`Ac@~A[nBm@b@QXGrAO"
+  },
+  "workout_type": 10,
+  "upload_id_str": "7374270605",
+  "average_speed": 5.483,
+  "max_speed": 11.201,
+  "gear_id": "b8936324",
+  "kilojoules": 363.6,
+  "average_watts": 158.4
+ },
+ {
+  "id": 6930048733,
+  "external_id": "garmin_push_8579356957",
+  "upload_id": 7374267343,
+  "athlete": {
+   "id": ***REMOVED***
+  },
+  "name": "Evening Swim",
+  "distance": 1700,
+  "moving_time": 2431,
+  "elapsed_time": 2451,
+  "type": "Swim",
+  "start_date": "2022-04-02T18:19:09Z",
+  "start_date_local": "2022-04-02T20:19:09Z",
+  "timezone": "(GMT+01:00) Europe/Zurich",
+  "start_latlng": [],
+  "end_latlng": [],
+  "athlete_count": 1,
+  "map": {
+   "id": "a6930048733"
+  },
+  "trainer": true,
+  "private": true,
+  "upload_id_str": "7374267343",
+  "average_speed": 0.699,
+  "max_speed": 4.168
+ },
+ {
+  "id": 6911450011,
+  "external_id": "garmin_push_8557918073",
+  "upload_id": 7354034818,
+  "athlete": {
+   "id": ***REMOVED***
+  },
+  "name": "Afternoon Ride",
+  "distance": 12488.2,
+  "moving_time": 2244,
+  "elapsed_time": 2601,
+  "total_elevation_gain": 97.9,
+  "elev_high": 517.4,
+  "elev_low": 412.1,
+  "type": "Ride",
+  "start_date": "2022-03-31T13:49:02Z",
+  "start_date_local": "2022-03-31T15:49:02Z",
+  "timezone": "(GMT+01:00) Europe/Zurich",
+  "start_latlng": [
+   47.310337,
+   8.543641
+  ],
+  "end_latlng": [
+   47.40045,
+   8.544676
+  ],
+  "achievement_count": 6,
+  "athlete_count": 1,
+  "map": {
+   "id": "a6911450011",
+   "summary_polyline": "c{w_Hkkcs@gCd@mEnA_ANu@XWAWI]Us@SQAc@HkChAW@CEGk@Qu@SCo@LW@mDh@eA\\kAn@mCdBkAh@c@JWBqGUgBQaFK_@FsAf@{Bp@cBb@gBn@aBp@}APgAVoH|C}Af@_B`@qBZaDdAE?EGSc@KK]VoAxA[T}@jA_AfBMPe@b@cBtAwDfCiG`Dq@j@WV{@fAcCnCgAl@uE`AaKfBgB^uAn@oAz@WCy@]S?KJc@bBkAzBi@z@iAlAy@f@e@NWJ{AZi@N}A~@kAfAkBjBuBlBGXAZIh@y@fAcA`BmAzAIR?L`AvBDND\\LF@B?HoA`B_@d@E@GAi@aAMECDCPPp@@JM\\Yj@q@|@uIvOC?e@wBMa@WHO?MQQm@Y{AsBmJo@gCYaAq@yAGEE?UL}GeB?Bi@NuANm@EyDH]AeA@o@FgARiBl@[RWHYBwAZiAZoA^oBv@g@WOBD?c@eAi@y@WY}@}Am@u@]k@Om@We@gBwC[a@e@c@G_@EEo@KUM{DcDUYYo@Mg@iAeFEo@qAaEo@yAKc@_@K[SSSs@iAkAsAgBkBkAaBw@oA][GIYq@M{A]{A_@qBm@}Bo@uAUYMm@a@}@mAqB]a@c@YQAMO[iAMSSGG@u@\\w@j@WXq@JMNc@P}@?WNs@VUB]?[DKDi@_@o@AA@ACKIQCOTaCJi@Mm@]aAq@w@MaFkBCDi@K[WUCa@OkAy@AaAEk@@_@MkBZeB?yBJ}CH_@LWRMx@UHO@IAKIOs@YOM[o@QMOCwAFq@JaB?o@Fg@H[Pi@c@qAKq@Bm@Vm@F_ARuBTo@LyALa@FW@q@Nk@JQEk@JeAFcDn@oBn@YP{@p@kAn@cA^m@b@yBlAw@`@]HiC|Ai@RY@m@La@NcAH_@P{BnAe@ZSDi@VeA\\y@Bq@Zq@r@sAlA}A^k@MGC]KoAKw@Ce@Gq@C{@MaAWq@W]GoBgAy@i@yBiA_Bw@OM_@SIMeAu@"
+  },
+  "private": true,
+  "upload_id_str": "7354034818",
+  "average_speed": 5.565,
+  "max_speed": 9.911,
+  "gear_id": "b8936322",
+  "kilojoules": 171.4,
+  "average_watts": 76.4
+ },
+ {
+  "id": 6891158216,
+  "external_id": "garmin_push_8534210745",
+  "upload_id": 7331875534,
+  "athlete": {
+   "id": ***REMOVED***
+  },
+  "name": "Sitz-Sunntig 💺 ",
+  "distance": 106108,
+  "moving_time": 15341,
+  "elapsed_time": 19097,
+  "total_elevation_gain": 1592,
+  "elev_high": 937,
+  "elev_low": 429.6,
+  "type": "Ride",
+  "start_date": "2022-03-27T08:02:09Z",
+  "start_date_local": "2022-03-27T10:02:09Z",
+  "timezone": "(GMT+01:00) Europe/Zurich",
+  "start_latlng": [
+   47.40028,
+   8.543681
+  ],
+  "end_latlng": [
+   47.40061,
+   8.544564
+  ],
+  "achievement_count": 64,
+  "kudos_count": 26,
+  "athlete_count": 2,
+  "total_photo_count": 2,
+  "map": {
+   "id": "a6891158216",
+   "summary_polyline": "m{h`Hm{ds@aN_[mGma@v@s}@hDqLuAoLtZk_AnKkRvKgIfFsc@eEed@n@aMic@aQtG}a@kAo^fFaR{G}KsH~D|CyR_\\aa@wEkKaQon@aBoScHyPtCqJ_BgOlDgOgH}ZhEwRxAci@|Loi@hF_m@cJwIyFum@{Mki@cCm`@iJir@kDkImB}`@aMnKcHKbBwPuXZwDkG`DwO{Ga_@rCs`@iBqVoIiRg@mM~EsId@}[_Hiw@qXqd@mH}@gXiZ_HmPkLuDkFuPhCg]_C}MyQeCkUqT~AcC|PrDxK{[_Aw[cJaTfQeWt@sNmDiPyOiQiAqKxAqHdBnAtKkJbOuVaGmCb@cJcDaFcDR{DtHq^sLlKo[yFjGqLsCnJkKeFwD[kw@gGkJaFwWqGaJOxL_MyH}TfGl@}JpIgMrBoV}NaRz@|NyOhIuHqNoKe@_ByPcDOsB}G_AwOtDaLmBoPhJqTOaLnPiAh@aEzGgCuCaf@`FaQuKaGyB}FwEou@pC_HtEdJ`EcOzJrCzMrJnG{EnAgHkDoG}Da\\jD_^fKqe@`[eg@lE}OrEgZjUqJdTjFdKiDhBuFGyR|CeKxFpHp@jg@tBzH`@tVsFpi@nAvJxK{HxI`ZxEhDjDaJHcTjFsEdBuLrF~UxHpLfi@yLbQ`IrBwN|KeGpEuKvMmFvD}LlM{BjI_S`HyCz@mk@tHyObJkCrFkJ`MzFxa@cSlRmb@nJ}DbJqRvHo@jBfCFxRzFxDv@bGxE}E|BrNlJtAsFv^{TCkGz_@fAlVyJfFj@lTaHfb@bBtO_HtDeG~N^lOmJnTvApNxNjNyHbC|@pFqBbAyAlLdCaI\\zD}Ix`@{FdKoLjm@`CnXzQ|l@xAxYfRdi@eA`RkUlCkHrPlA~E}OzVtDhW_@zIxFdWsBnOpCtJuGf\\iM`Q|NfOdOfAbGjNdMxFfLb^nLzQvA~mAiUhs@gf@~c@uIzTQdU}DvJxKnPnGrb@|Y`TjFrOgAl\\iQ`g@hLvHbLdSji@tPjA`KlMzRrDz~@tF~@~JoH`Kg@lKqFtHsIzOe@bq@ds@nl@fe@bGpIhMKj}@~Z_GzR{TxSkFxM~MtUuBfSoJlOwVtMgPec@kIbIuJz@uNvYsw@rn@sXbc@aAnN}LzQmb@fQqL`YsWlkA^lW`DfJtPfLf_@pc@eq@ppAed@nZqPpC{KzQjLdScUvb@cAf]aCtRwIdVC`S}EbZ{MvKsIfP_Z|{@`AdQoBpAVpFdFrT}BnRGne@dVn[`@`XbPrRaBzLvOpI{LgGiDtK"
+  },
+  "workout_type": 10,
+  "upload_id_str": "7331875534",
+  "average_speed": 6.917,
+  "max_speed": 20.656,
+  "gear_id": "b8936322",
+  "kilojoules": 2226.7,
+  "average_watts": 145.1
+ },
+ {
+  "id": 6856553092,
+  "external_id": "garmin_push_8494604955",
+  "upload_id": 7294488598,
+  "athlete": {
+   "id": ***REMOVED***
+  },
+  "name": "Morning Activity",
+  "distance": 3264.2,
+  "moving_time": 4278,
+  "elapsed_time": 6161,
+  "total_elevation_gain": 534.2,
+  "elev_high": 2152,
+  "elev_low": 1620.8,
+  "type": "NordicSki",
+  "start_date": "2022-03-20T08:51:41Z",
+  "start_date_local": "2022-03-20T09:51:41Z",
+  "timezone": "(GMT+01:00) Europe/Zurich",
+  "start_latlng": [
+   46.781406,
+   9.695316
+  ],
+  "end_latlng": [
+   46.772366,
+   9.710889
+  ],
+  "athlete_count": 1,
+  "map": {
+   "id": "a6856553092",
+   "summary_polyline": "mso|Gsoez@ZFHTJDh@ENH`@n@?HZHFCL?JF\\f@J?@DD@DGZ?J@IKBMEY@EOg@CO?MFQHAF?CHl@BJIJE?[CGGe@K[AYCEKc@@WDEGYEKE{@EQCKKKISBUE[DGD?v@QR@DCF?FJHBTXHBLLCRDHVJ?@HIFA@BRHACBKLGJ@@DBCF@AHBBJGDJD?JLRD@@ABDENECODMXAVNBD?HBABBBAN@TFHIDMCU@ODIL?@GI_A@[FEB@VCJOQmBOaAAaAGm@Qw@KUCMNMLUb@mBX[@ELIDITYXGT?NCLQDITOPg@UQDGx@i@Vm@\\]?GM]ICAENGBEKKDMFGh@cATMFGLSBK"
+  },
+  "private": true,
+  "upload_id_str": "7294488598",
+  "average_speed": 0.763,
+  "max_speed": 2.646
+ },
+ {
+  "id": 6855120745,
+  "external_id": "garmin_push_8492852173",
+  "upload_id": 7292913628,
+  "athlete": {
+   "id": ***REMOVED***
+  },
+  "name": "Furggahorn ⛷",
+  "distance": 15410.5,
+  "moving_time": 12014,
+  "elapsed_time": 21415,
+  "total_elevation_gain": 1241,
+  "elev_high": 2690,
+  "elev_low": 1509.2,
+  "type": "BackcountrySki",
+  "start_date": "2022-03-20T08:31:55Z",
+  "start_date_local": "2022-03-20T09:31:55Z",
+  "timezone": "(GMT+01:00) Europe/Zurich",
+  "start_latlng": [
+   46.778717,
+   9.685488
+  ],
+  "end_latlng": [
+   46.79762,
+   9.703475
+  ],
+  "kudos_count": 14,
+  "athlete_count": 2,
+  "total_photo_count": 7,
+  "map": {
+   "id": "a6855120745",
+   "summary_polyline": "map|Ga_dz@_@QiBkB_AT_@Si@uAN_AqBcC\\a@r@S`CXz@IHYY\\b@UdB@KJmBBP]IBGa@B}@ZY`Da@]AaA{@aCDkAgAgAwD?_C]k@Gu@iA}@eByC_EiEDyCKaB^Ir@|@hAp@xDHfBr@~@hAtBMAe@Zg@hAW|Bp@b@b@dB?v@n@lEj@b@fAh@Df@l@z@Aa@yB`@Yt@HVSe@UHi@i@wANu@_A}BH}@r@Uv@^bADPXd@HQBhALNX`Ae@d@FLV~@GKWb@o@W_Az@g@Yy@McBEcBg@sBd@u@j@wBz@w@fAMd@a@Ja@SGASpAcAhAiDpCwEr@_Ev@oA?iCViAn@_@FTIOPBOBPl@Ge@a@iBdCkM~@wSZaERKBaBt@mDj@sBbAcBTeAGiBXwAG{@TuBM}@AoCHyMOqBm@}AQ{Aa@GITO]kB_@gEfGyB?yAc@WpFJhAj@jB_BRaAKrB?LU_@oDBcDYmBR_@p@s@B{Bd@y@[uBDwCgA{Fo@kFkAyE}@eAm@_BgCuDoAqEcDxAq@|@{@TqCMc@d@u@xBc@tB?`AjAvE`AVBr@z@f@bArDAiBa@UWy@aAk@Ia@yAU{Al@a@n@Gh@Dl@f@|Au@TZ~AeAg@u@KMb@P|@PNGZgCe@Er@cBv@Xl@@TU`@aBKBhAk@JS`AuAe@g@tA{@xEj@xAHjDJLK\\p@^p@vAGDu@JEv@h@lBOT@zAJFVfDb@|AYjAKhENhB~@vDIpHJpEC^k@v@q@bEoBWFM}@\\^^Ql@rAz@SXB`@a@HMfA|CfKLv@W@ThAXNF\\KxC|@hC_@~BONBXm@FDf@W`@?d@z@v@m@v@\\z@Cn@Rd@Un@JbEi@rAWc@m@bAGd@ZBBz@_@VOh@AjAiAb@[|AHr@Q|@Lb@MrCJv@[lAHhBSl@Df@]f@e@AE~@m@M_@VPbBqALgAm@|ArBbAt@L|@zAbDl@pBdA|ABv@`BFp@|@REBT{C`@MVGlBgBF}KaG}A[cEDuBqAwB[g@e@w@}AaBkFcBwBBeEO{@aAeBqBmBy@QsCNcCgBkA_B_@Fg@a@Qm@u@IcAkB{Es@u@}@oB`AOMf@c@o@@o@f@o@lAuA_@"
+  },
+  "upload_id_str": "7292913628",
+  "average_speed": 1.283,
+  "max_speed": 13.254
+ },
+ {
+  "id": 6848332508,
+  "external_id": "garmin_push_8485443512",
+  "upload_id": 7285524780,
+  "athlete": {
+   "id": ***REMOVED***
+  },
+  "name": "Stephan's Tour (Hohture) ☀️",
+  "distance": 10041.5,
+  "moving_time": 6717,
+  "elapsed_time": 20751,
+  "total_elevation_gain": 503,
+  "elev_high": 2328.7,
+  "elev_low": 1666.9,
+  "type": "BackcountrySki",
+  "start_date": "2022-03-19T08:23:46Z",
+  "start_date_local": "2022-03-19T09:23:46Z",
+  "timezone": "(GMT+01:00) Europe/Zurich",
+  "start_latlng": [
+   46.28149,
+   8.042115
+  ],
+  "end_latlng": [
+   46.28425,
+   8.045177
+  ],
+  "kudos_count": 3,
+  "athlete_count": 2,
+  "total_photo_count": 3,
+  "map": {
+   "id": "a6848332508",
+   "summary_polyline": "menyGabbp@JqACe@Io@Da@CaA?}ABQF@Fp@VnARr@rAvCHPL@YeAOeBCc@F_@EeAQoA@}A\\cD\\eAPiAZyDTgABo@EkAL}ABS^aAg@?e@b@g@A}@g@gAuASQ]i@m@c@mBSyBK][Qg@?MFAIaA\\iCDqBNmC`@sCb@cBlAaALMDWEQSg@MKIYEO@UVg@d@sBjAyAp@m@t@_ADk@Aq@T}BLk@NsALi@Wm@}@e@o@KeA@{@]sAUk@YcCq@sBSuBu@sEAi@YQ[?@?EZGLFLEf@D^KZAFIh@SPDRUd@E`@YN?^WVCl@m@UYq@YgBY]g@IYE{ADGlBUr@}@EMWOg@CFOx@wA`@i@d@c@N[A_@Ws@[sBBSXEr@a@Gm@GONSTDEIBCRDB@G@x@b@n@P|@r@p@BDGW[?ODEf@FHCDIOe@DOHAn@^TEDUTg@`@wAp@_@H?b@^~@d@b@]Vk@LI|@IjA{BZSbAJBGGo@@Ib@DXT`@h@AOb@FBYJ@HE@YADCG?JHGDQGBIV@IDF@EGA@HCBDAGQFDDPELi@ACPVx@KJ[IsAaBg@FIHU`@Fl@Ad@_A|Cw@|AUPSASKGd@e@lAL^SnAQRe@^q@THRJBSNOBCJD\\UPKPs@CWb@GMQMQC}@n@CJQBAVIDYx@a@b@KX@b@d@\\xBL@j@C|@m@j@OXOn@Zr@Dn@rAb@p@n@BXWP?j@b@Zn@`AjAjCNv@?v@GdAm@lCc@`Au@nAm@fBQ\\a@`CBj@Tv@Cf@Wh@iBtBw@bDYl@w@tDSvC?rAF`@Vv@j@BQJ_@BCNK?c@I`AYSTgAh@hAYm@Ht@DBSKBLDHCBG[RIODD@EAFFD@EM?F@GE@A?FBGF?HO`@ULFBII?dAI|AHjAb@rAlB`AbAd@Xd@?Za@j@MLVSl@U`AEr@G`D_@nEShB_@lAWnBMvBTvC@hCh@`DFHAT[p@{AvA]LqAImAp@Q`@Gl@A`BIRC`@BzANnBGd@kAbD?j@f@pCl@bAp@d@x@fA^ZhB`@P@n@SB`@a@n@KFMn@URO@AGGCDC@JVELKJQ@OCEO?_Bj@}A`@_BHm@Go@YiByAk@]m@S"
+  },
+  "upload_id_str": "7285524780",
+  "average_speed": 1.495,
+  "max_speed": 14.82
+ },
+ {
+  "id": 6821376721,
+  "external_id": "garmin_push_8454369983",
+  "upload_id": 7256569236,
+  "athlete": {
+   "id": ***REMOVED***
+  },
+  "name": "Morning Ride",
+  "distance": 8736.7,
+  "moving_time": 1738,
+  "elapsed_time": 2058,
+  "total_elevation_gain": 46.7,
+  "elev_high": 485.8,
+  "elev_low": 411.7,
+  "type": "Ride",
+  "start_date": "2022-03-14T06:55:46Z",
+  "start_date_local": "2022-03-14T07:55:46Z",
+  "timezone": "(GMT+01:00) Europe/Zurich",
+  "start_latlng": [
+   47.39667,
+   8.543242
+  ],
+  "end_latlng": [
+   47.336613,
+   8.53336
+  ],
+  "athlete_count": 1,
+  "map": {
+   "id": "a6821376721",
+   "summary_polyline": "kag`Hmrcs@d@S`GqApDq@HAVD\\I|@Mb@]TG^ENDH?\\g@|DkDfAi@^JbAl@bBjAVHVAxCw@~A]z@OjBFnDAJBNPD?pAy@|@s@|CsBpAu@r@m@d@YXUjAuAlBq@h@i@f@URQVGf@CZEfBw@fAUhBs@hBw@pJeD~BcApCi@N?PD^TjFbFf@fARRr@Z~@t@hBbBhAr@rArAL^Rx@r@tBHDD?FCx@_Ab@_@vAoBAOEC?HKJODAEm@BNCPVC?D?@GHCPBl@RMKNHAVK?gDo@|BTHKSIAKFGCE@ELG@@?EDAAAHD?BCIHB?DGC?Ty@bAmArA{@jA?JBXNX\\dATDZJJJBJBt@Xl@AnANz@L~@XhD\\zCBb@j@~EDPPd@t@jArBxErBvF`A`CP^t@zBLBXZDP^p@j@hBVf@PNNDx@EnACZNHZ?jCDr@HTp@IbACJCh@[p@SVAhBAp@K|@Gj@D`@I\\K`CUf@DVApCYxC_@b@AxALhAPtC|@L?jAZ|ARjBF|@@hDGlDK`DQvAEpJEvBEfC?hIEv@CbC[`@SdFaDpDiCnBmAbAi@dBu@hCw@FBJf@CPSLOLEHKF[XKRMHOVW\\AF@b@RfAZpCJFL?v@[`Ae@p@g@vBaANK"
+  },
+  "private": true,
+  "upload_id_str": "7256569236",
+  "average_speed": 5.027,
+  "max_speed": 10.762,
+  "gear_id": "b8936322",
+  "kilojoules": 116.2,
+  "average_watts": 66.9
+ }
+]
