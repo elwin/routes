@@ -9,6 +9,47 @@ type Route struct {
 	Positions []Position
 }
 
+func norm(r Route, width, height float64) Route {
+	topLeft, bottomRight := bounds(r.Positions)
+	originalWidth := bottomRight.X - topLeft.X
+	scaleX := width / originalWidth
+	originalHeight := bottomRight.Y - topLeft.Y
+	scaleY := height / originalHeight
+
+	scale := scaleX
+	if scaleY < scaleX {
+		scale = scaleY
+	}
+
+	offsetX := -topLeft.X
+	xxx := (width-originalWidth*scale)/2
+	offsetY := -topLeft.Y
+	yyyy := (height-originalHeight*scale)/2
+
+	var scaledRoute Route
+	for _, position := range r.Positions {
+		scaledRoute.Positions = append(scaledRoute.Positions, Position{
+			X: (position.X + offsetX) * scale + xxx,
+			Y: height - (position.Y+offsetY)*scale - yyyy,
+		})
+	}
+
+	return scaledRoute
+}
+
+func offset(r Route, x, y float64) Route {
+	var offsetRoute Route
+
+	for _, position := range r.Positions {
+		offsetRoute.Positions = append(offsetRoute.Positions, Position{
+			X: position.X + x,
+			Y: position.Y + y,
+		})
+	}
+
+	return offsetRoute
+}
+
 func normalize(r []Route, maxWidth, maxHeight int) []Route {
 	width, height := float64(maxWidth), float64(maxHeight)
 

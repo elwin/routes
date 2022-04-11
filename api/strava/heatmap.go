@@ -106,6 +106,27 @@ func (c Client) heatmap(ctx context.Context, maxWidth, maxHeight int, omit []int
 	return buf.Bytes(), nil
 }
 
+func convertActivityToRoute(activity strava.SummaryActivity) (Route, error) {
+	coords, _, err := polyline.DecodeCoords([]byte(activity.Map_.SummaryPolyline))
+	if err != nil {
+		return Route{}, errors.Wrap(err, "failed to decode coordinates")
+	}
+
+	var positions []Position
+	for _, coord := range coords {
+		if len(coord) != 2 {
+			return Route{}, errors.Errorf("expected 2 coordinates (X, Y), received %d", len(coord))
+		}
+
+		positions = append(positions, Position{X: coord[1], Y: -coord[0]})
+	}
+
+	return Route{
+		Id:        activity.Id,
+		Positions: positions,
+	}, nil
+}
+
 func convertActivitiesToRoutes(activities []strava.SummaryActivity) ([]Route, error) {
 	var routes []Route
 	for _, activity := range activities {

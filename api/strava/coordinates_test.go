@@ -31,6 +31,58 @@ func Test_bounds(t *testing.T) {
 	}
 }
 
+func Test_norm(t *testing.T) {
+	tests := []struct {
+		in, out Route
+		maxWidth, maxHeight float64
+	}{
+		{
+			Route{0, []Position{
+				{0, 0},
+				{100, 100},
+			}},
+			Route{0, []Position{
+				{0, 0},
+				{10, 10},
+			}},
+			10,
+			10,
+		},
+		{
+			Route{0, []Position{
+				{0, 0},
+				{50, 50},
+				{100, 100},
+			}},
+			Route{0, []Position{
+				{0, 0},
+				{5, 5},
+				{10, 10},
+			}},
+			10,
+			10,
+		},
+		{
+			Route{
+				0, []Position{
+					{50 + 100, 50 + 90},
+					{50 + 90, 50 + 100},
+				},
+			},
+			Route{0, []Position{
+				{10, 0},
+				{0, 10},
+			}},
+			10,
+			10,
+		},
+	}
+
+	for i, test := range tests {
+		assert.Equal(t, test.out, norm(test.in, test.maxWidth, test.maxHeight), i)
+	}
+}
+
 func Test_normalize(t *testing.T) {
 	tests := []struct {
 		in        []Route

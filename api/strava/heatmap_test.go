@@ -54,7 +54,7 @@ func (suite *StravaTestSuite) Test_something() {
 		}
 
 		activities = append(activities, *activity)
-		if len(activities) == 10 {
+		if len(activities) == 500 {
 			break
 		}
 	}
