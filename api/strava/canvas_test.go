@@ -7,12 +7,13 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_xx(t *testing.T) {
+func Test_canvas(t *testing.T) {
 	activities, err := load()
 	assert.NoError(t, err)
 
 	assert.NoError(t, os.MkdirAll("out/png", 0755))
 	assert.NoError(t, os.MkdirAll("out/pdf", 0755))
+	assert.NoError(t, os.MkdirAll("out/svg", 0755))
 
 
 	for _, palette := range palettes {

@@ -19,16 +19,21 @@ type Config struct {
 }
 
 func ReadConfig(path string) (Config, error) {
-	f, err := os.Open(path)
-	if err != nil {
-		return Config{}, err
-	}
-
 	var c Config
-	decoder := yaml.NewDecoder(f)
-	if err := decoder.Decode(&c); err != nil {
+
+	if err := ReadYamlConfig(path, &c); err != nil {
 		return Config{}, err
 	}
 
 	return c, nil
+}
+
+func ReadYamlConfig(path string, x interface{}) error {
+	f, err := os.Open(path)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	return yaml.NewDecoder(f).Decode(x)
 }

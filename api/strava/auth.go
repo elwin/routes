@@ -2,12 +2,12 @@ package strava
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 	"strings"
 
 	"github.com/elwin/strava-go-api/v3/strava"
+	"github.com/go-resty/resty/v2"
 	"golang.org/x/oauth2"
 )
 
@@ -42,10 +42,8 @@ func oauthConfig(conf Config) *oauth2.Config {
 	}
 }
 
-func FetchToken(ctx context.Context, conf Config) (*oauth2.Token, error) {
+func FetchToken(ctx context.Context, conf Config, stravaRememberId, stravaRememberToken string) (*oauth2.Token, error) {
 	url := oauthConfig(conf).AuthCodeURL("state", oauth2.AccessTypeOffline)
-	fmt.Println("Please open the following URL in your browser:")
-	fmt.Println(url)
 
 	handler := http.NewServeMux()
 	srv := http.Server{Addr: strings.TrimLeft(conf.RedirectHost, "http://"), Handler: handler}
@@ -55,15 +53,26 @@ func FetchToken(ctx context.Context, conf Config) (*oauth2.Token, error) {
 		if _, err := w.Write([]byte("Authorized")); err != nil {
 			log.Fatal(err)
 		}
-
-		go func() {
-			if err := srv.Shutdown(ctx); err != nil {
-				log.Fatal(err)
-			}
-		}()
 	})
 
-	if err := srv.ListenAndServe(); err != http.ErrServerClosed {
+	go func() {
+		if err := srv.ListenAndServe(); err != http.ErrServerClosed {
+			panic(err)
+		}
+	}()
+
+	_, err := resty.New().SetCookie(&http.Cookie{
+		Name:  "strava_remember_token",
+		Value: stravaRememberToken,
+	}).SetCookie(&http.Cookie{
+		Name:  "strava_remember_id",
+		Value: stravaRememberId,
+	}).R().Get(url)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := srv.Shutdown(ctx); err != nil {
 		return nil, err
 	}
 

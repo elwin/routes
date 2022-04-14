@@ -46,15 +46,6 @@ type colorPalette struct {
 }
 
 var (
-	backgroundColor = parseHexColor("#011C27")
-	colorMap        = map[strava.ActivityType]color.RGBA{
-		strava.RIDE_ActivityType:            parseHexColor("#03254E"),
-		strava.ALPINE_SKI_ActivityType:      parseHexColor("#545677"),
-		strava.BACKCOUNTRY_SKI_ActivityType: parseHexColor("#545677"),
-		strava.NORDIC_SKI_ActivityType:      parseHexColor("#545677"),
-		strava.RUN_ActivityType:             parseHexColor("#EB9FEF"),
-	}
-
 	palettes = []colorPalette{
 		{"dawn", "#180A0A", "#711A75", "#F10086", "#F582A7"},
 		{"sea", "#F7E2E2", "#61A4BC", "#5B7DB1", "#1A132F"},
@@ -64,6 +55,7 @@ var (
 		{"violet", "#000000", "#52057B", "#892CDC", "#BC6FF1"},
 		{"strava", "#082032", "#2C394B", "#334756", "#FF4C29"},
 		{"blood", "#000000", "#3D0000", "#950101", "#FF0000"},
+		{"aga", "#2F4858", "#F26419", "#55DDE0", "#F6AE2D"},
 	}
 )
 
@@ -79,7 +71,7 @@ func load() ([]strava.SummaryActivity, error) {
 }
 
 func draw(activities []strava.SummaryActivity, palette colorPalette) error {
-	colorMap = map[strava.ActivityType]color.RGBA{
+	colorMap := map[strava.ActivityType]color.RGBA{
 		strava.RIDE_ActivityType:            parseHexColor(palette.ride),
 		strava.ALPINE_SKI_ActivityType:      parseHexColor(palette.ski),
 		strava.BACKCOUNTRY_SKI_ActivityType: parseHexColor(palette.ski),
@@ -156,6 +148,9 @@ func draw(activities []strava.SummaryActivity, palette colorPalette) error {
 		return err
 	}
 	if err := c.WriteFile("out/pdf/"+filename+".pdf", renderers.PDF()); err != nil {
+		return err
+	}
+	if err := c.WriteFile("out/svg/"+filename+".svg", renderers.SVG()); err != nil {
 		return err
 	}
 

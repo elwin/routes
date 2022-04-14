@@ -6,7 +6,9 @@ require (
 	github.com/antihax/optional v1.0.0
 	github.com/elwin/strava-go-api/v3 v3.0.3
 	github.com/fogleman/gg v1.3.0
+	github.com/go-resty/resty/v2 v2.7.0
 	github.com/gorilla/sessions v1.2.0
+	github.com/icza/gox v0.0.0-20220321141217-e2d488ab2fbc
 	github.com/labstack/echo-contrib v0.9.0
 	github.com/labstack/echo/v4 v4.1.16
 	github.com/pkg/errors v0.9.1
@@ -33,7 +35,6 @@ require (
 	github.com/golang/protobuf v1.5.0 // indirect
 	github.com/gorilla/context v1.1.1 // indirect
 	github.com/gorilla/securecookie v1.1.1 // indirect
-	github.com/icza/gox v0.0.0-20220321141217-e2d488ab2fbc // indirect
 	github.com/labstack/gommon v0.3.0 // indirect
 	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect
@@ -46,7 +47,7 @@ require (
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
 	golang.org/x/exp v0.0.0-20220303212507-bbda1eaf7a17 // indirect
 	golang.org/x/image v0.0.0-20211028202545-6944b10bf410 // indirect
-	golang.org/x/net v0.0.0-20211015210444-4f30a5c0130f // indirect
+	golang.org/x/net v0.0.0-20211029224645-99673261e6eb // indirect
 	golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e // indirect
 	golang.org/x/text v0.3.7 // indirect
 	gonum.org/v1/plot v0.10.0 // indirect
