@@ -8,14 +8,13 @@ import (
 	"testing"
 
 	"github.com/elwin/heatmap/api/app"
-	"github.com/elwin/strava-go-api/v3/strava"
 	"github.com/stretchr/testify/suite"
 )
 
 var (
 	update = flag.Bool("update", false, "update the golden files of this test")
-	port = ":3000"
-	host = "http://localhost" + port
+	port   = ":3000"
+	host   = "http://localhost" + port
 )
 
 type StravaTestSuite struct {
@@ -45,10 +44,10 @@ func (suite *StravaTestSuite) SetupTest() {
 			RedirectHost: host,
 		}
 
-		stravaRememberToken := "***REMOVED***.eyJpc3MiOiJjb20uc3RyYXZhLmF0aGxldGVzIiwic3ViIjoyMzU4NDU0MCwiaWF0IjoxNjQ3ODA2NDU3LCJleHAiOjE2NTAzOTg0NTcsImVtYWlsIjoiTTg0cExoNVFTaDF0b29vK0VpTWdhaStBV2RERUtwK1F5R0haN3YxSjc5WC9GaDNCNW9VVDJjUnJwbjVkXG5IbVpJZm8vLzE4RnNtTFhOeW8wNWM3a2hTOEJQSGtrYzJPUW8yeTdObHBlMkVFaz1cbiJ9.4cDzhb6kMi-pAXG1g5S8Dz92RcBx0NWhrdq4vSjX7S8"
-		stravaRememberId := "***REMOVED***"
+		// xx.Strava.RememberID = "***REMOVED***"
+		// xx.Strava.RememberToken = "***REMOVED***"
 
-		token, err := FetchToken(ctx, conf, stravaRememberId, stravaRememberToken)
+		token, err := FetchToken(ctx, conf, xx.Strava.RememberID, xx.Strava.RememberToken)
 		suite.Require().NoError(err)
 
 		suite.client = NewClient(ctx, conf, token)
@@ -58,20 +57,8 @@ func (suite *StravaTestSuite) SetupTest() {
 func (suite *StravaTestSuite) Test_activities() {
 	ctx := context.Background()
 
-	it := suite.client.activities()
-	var activities []strava.SummaryActivity
-	for {
-		activity, err := it.Next(ctx)
-		suite.Require().NoError(err)
-		if activity == nil {
-			break
-		}
-
-		activities = append(activities, *activity)
-		if len(activities) == 5 {
-			break
-		}
-	}
+	activities, err := suite.client.activities().all(ctx)
+	suite.Require().NoError(err)
 
 	out, err := json.MarshalIndent(activities, "", " ")
 	suite.Require().NoError(err)

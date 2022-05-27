@@ -2,9 +2,11 @@ package strava
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"strings"
+	"sync"
 
 	"github.com/elwin/strava-go-api/v3/strava"
 	"github.com/go-resty/resty/v2"
@@ -48,11 +50,15 @@ func FetchToken(ctx context.Context, conf Config, stravaRememberId, stravaRememb
 	handler := http.NewServeMux()
 	srv := http.Server{Addr: strings.TrimLeft(conf.RedirectHost, "http://"), Handler: handler}
 	var code string
+	wg := &sync.WaitGroup{}
+	wg.Add(1)
 	handler.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		code = r.URL.Query().Get("code")
 		if _, err := w.Write([]byte("Authorized")); err != nil {
 			log.Fatal(err)
 		}
+
+		wg.Done()
 	})
 
 	go func() {
@@ -61,7 +67,7 @@ func FetchToken(ctx context.Context, conf Config, stravaRememberId, stravaRememb
 		}
 	}()
 
-	_, err := resty.New().SetCookie(&http.Cookie{
+	resp, err := resty.New().SetCookie(&http.Cookie{
 		Name:  "strava_remember_token",
 		Value: stravaRememberToken,
 	}).SetCookie(&http.Cookie{
@@ -71,6 +77,13 @@ func FetchToken(ctx context.Context, conf Config, stravaRememberId, stravaRememb
 	if err != nil {
 		return nil, err
 	}
+
+	if resp.String() != "Authorized" {
+		fmt.Println("Please open the following URL in your browser")
+		fmt.Println(url)
+	}
+
+	wg.Wait()
 
 	if err := srv.Shutdown(ctx); err != nil {
 		return nil, err

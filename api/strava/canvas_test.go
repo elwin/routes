@@ -1,22 +1,16 @@
 package strava
 
 import (
-	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_canvas(t *testing.T) {
-	activities, err := load()
+	activities, err := LoadActivity("tests/activities.json")
+	require.NoError(t, err)
+
+	_, err = Draw(activities, LayoutA2)
 	assert.NoError(t, err)
-
-	assert.NoError(t, os.MkdirAll("out/png", 0755))
-	assert.NoError(t, os.MkdirAll("out/pdf", 0755))
-	assert.NoError(t, os.MkdirAll("out/svg", 0755))
-
-
-	for _, palette := range palettes {
-		assert.NoError(t, draw(activities, palette))
-	}
 }
