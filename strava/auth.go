@@ -44,6 +44,43 @@ func oauthConfig(conf Config) *oauth2.Config {
 	}
 }
 
+func Fetcher(ctx context.Context, conf Config) (*oauth2.Token, error) {
+	url := oauthConfig(conf).AuthCodeURL("state", oauth2.AccessTypeOffline)
+
+	handler := http.NewServeMux()
+	srv := http.Server{Addr: strings.TrimLeft(conf.RedirectHost, "http://"), Handler: handler}
+	var code string
+	wg := &sync.WaitGroup{}
+	wg.Add(1)
+	handler.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		code = r.URL.Query().Get("code")
+		if _, err := w.Write([]byte("Authorized")); err != nil {
+			log.Fatal("Failed to write response from auth handler", zap.Error(err))
+		}
+
+		wg.Done()
+	})
+
+	go func() {
+		if err := srv.ListenAndServe(); err != http.ErrServerClosed {
+			panic(err)
+		}
+	}()
+
+	fmt.Println("Please open the following URL in your browser")
+	fmt.Println(url)
+
+	wg.Wait()
+
+	fmt.Println("Successfully authorized")
+
+	if err := srv.Shutdown(ctx); err != nil {
+		return nil, err
+	}
+
+	return oauthConfig(conf).Exchange(ctx, code)
+}
+
 func FetchToken(ctx context.Context, conf Config, stravaRememberId, stravaRememberToken string) (*oauth2.Token, error) {
 	url := oauthConfig(conf).AuthCodeURL("state", oauth2.AccessTypeOffline)
 
@@ -91,6 +128,7 @@ func FetchToken(ctx context.Context, conf Config, stravaRememberId, stravaRememb
 
 	return oauthConfig(conf).Exchange(ctx, code)
 }
+
 func NewClient(ctx context.Context, conf Config, token *oauth2.Token) *Client {
 	clientConfig := strava.NewConfiguration()
 	clientConfig.HTTPClient = oauthConfig(conf).Client(ctx, token)
@@ -98,4 +136,19 @@ func NewClient(ctx context.Context, conf Config, token *oauth2.Token) *Client {
 	return &Client{
 		client: strava.NewAPIClient(clientConfig),
 	}
+}
+
+func New(ctx context.Context, ClientID, ClientSecret string) (*Client, error) {
+	conf := Config{
+		ClientID:     ClientID,
+		ClientSecret: ClientSecret,
+		RedirectHost: "http://localhost:9876",
+	}
+
+	token, err := Fetcher(ctx, conf)
+	if err != nil {
+		return nil, err
+	}
+
+	return NewClient(ctx, conf, token), nil
 }

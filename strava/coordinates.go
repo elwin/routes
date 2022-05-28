@@ -26,6 +26,7 @@ func normalize(r Route, width, height float64) Route {
 	offsetY := -topLeft.Y
 	yyyy := (height - originalHeight*scale) / 2
 
+
 	var scaledRoute Route
 	for _, position := range r.Positions {
 		scaledRoute.Positions = append(scaledRoute.Positions, Position{

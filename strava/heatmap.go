@@ -40,7 +40,7 @@ func (it *ActivityIterator) Next(ctx context.Context) (*strava.SummaryActivity, 
 	return &next, nil
 }
 
-func (it *ActivityIterator) all(ctx context.Context) ([]strava.SummaryActivity, error) {
+func (it *ActivityIterator) All(ctx context.Context) ([]strava.SummaryActivity, error) {
 	var results []strava.SummaryActivity
 	for {
 		if activity, err := it.Next(ctx); err != nil {
@@ -53,7 +53,7 @@ func (it *ActivityIterator) all(ctx context.Context) ([]strava.SummaryActivity, 
 	}
 }
 
-func (c Client) activities() *ActivityIterator {
+func (c Client) Activites() *ActivityIterator {
 	return &ActivityIterator{
 		c:           c,
 		currentPage: 1,

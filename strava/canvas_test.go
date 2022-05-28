@@ -8,7 +8,7 @@ import (
 )
 
 func Test_canvas(t *testing.T) {
-	activities, err := LoadActivity("tests/activities.json")
+	activities, err := LoadActivity("tests/Activites.json")
 	require.NoError(t, err)
 
 	_, err = Draw(activities, LayoutA2)

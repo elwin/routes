@@ -44,9 +44,6 @@ func (suite *StravaTestSuite) SetupTest() {
 			RedirectHost: host,
 		}
 
-		// xx.Strava.RememberID = "***REMOVED***"
-		// xx.Strava.RememberToken = "***REMOVED***"
-
 		token, err := FetchToken(ctx, conf, xx.Strava.RememberID, xx.Strava.RememberToken)
 		suite.Require().NoError(err)
 
@@ -57,14 +54,14 @@ func (suite *StravaTestSuite) SetupTest() {
 func (suite *StravaTestSuite) Test_activities() {
 	ctx := context.Background()
 
-	activities, err := suite.client.activities().all(ctx)
+	activities, err := suite.client.Activites().All(ctx)
 	suite.Require().NoError(err)
 
 	out, err := json.MarshalIndent(activities, "", " ")
 	suite.Require().NoError(err)
 
 	if *update {
-		f, err := os.Create("tests/activities.json")
+		f, err := os.Create("tests/Activites.json")
 		defer f.Close()
 		_, err = f.Write(out)
 		suite.Require().NoError(err)
