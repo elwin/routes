@@ -1,6 +1,6 @@
 ---
 strava:
-  id: ***REMOVED***
-  client_secret: ***REMOVED***
-  remember_id: ***REMOVED***
-  remember_token: ***REMOVED***
+  id:
+  client_secret:
+  remember_id:
+  remember_token:
