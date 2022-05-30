@@ -1,19 +1,14 @@
-module github.com/elwin/heatmap/api
+module github.com/elwin/routes
 
 go 1.18
 
 require (
 	github.com/antihax/optional v1.0.0
 	github.com/elwin/strava-go-api/v3 v3.0.3
-	github.com/fogleman/gg v1.3.0
 	github.com/go-resty/resty/v2 v2.7.0
-	github.com/gorilla/sessions v1.2.0
 	github.com/icza/gox v0.0.0-20220321141217-e2d488ab2fbc
-	github.com/labstack/echo-contrib v0.9.0
-	github.com/labstack/echo/v4 v4.1.16
 	github.com/pkg/errors v0.9.1
 	github.com/samber/lo v1.11.0
-	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.7.0
 	github.com/tdewolff/canvas v0.0.0-20220402152251-19368ddd73e5
 	github.com/twpayne/go-polyline v1.1.1
@@ -31,6 +26,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/dsnet/compress v0.0.1 // indirect
+	github.com/fatih/camelcase v1.0.0 // indirect
 	github.com/go-latex/latex v0.0.0-20210823091927-c0d11ff05a81 // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
 	github.com/golang/protobuf v1.5.0 // indirect
@@ -40,6 +36,8 @@ require (
 	github.com/labstack/gommon v0.3.0 // indirect
 	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect
+	github.com/mattn/go-runewidth v0.0.9 // indirect
+	github.com/olekukonko/tablewriter v0.0.5 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/tdewolff/minify/v2 v2.10.0 // indirect

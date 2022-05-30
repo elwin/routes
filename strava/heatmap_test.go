@@ -7,7 +7,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/elwin/heatmap/api/app"
+	"github.com/elwin/heatmap/app"
 	"github.com/stretchr/testify/suite"
 )
 
