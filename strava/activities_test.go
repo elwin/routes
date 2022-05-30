@@ -7,7 +7,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/elwin/heatmap/app"
+	"github.com/elwin/routes/app"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -54,14 +54,14 @@ func (suite *StravaTestSuite) SetupTest() {
 func (suite *StravaTestSuite) Test_activities() {
 	ctx := context.Background()
 
-	activities, err := suite.client.Activites().All(ctx)
+	activities, err := suite.client.Activities().All(ctx)
 	suite.Require().NoError(err)
 
 	out, err := json.MarshalIndent(activities, "", " ")
 	suite.Require().NoError(err)
 
 	if *update {
-		f, err := os.Create("tests/Activites.json")
+		f, err := os.Create("tests/Activities.json")
 		defer f.Close()
 		_, err = f.Write(out)
 		suite.Require().NoError(err)

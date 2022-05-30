@@ -53,7 +53,7 @@ func (it *ActivityIterator) All(ctx context.Context) ([]strava.SummaryActivity, 
 	}
 }
 
-func (c Client) Activites() *ActivityIterator {
+func (c Client) Activities() *ActivityIterator {
 	return &ActivityIterator{
 		c:           c,
 		currentPage: 1,

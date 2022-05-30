@@ -55,7 +55,7 @@ var (
 				return err
 			}
 
-			activities, err := client.Activites().All(c.Context)
+			activities, err := client.Activities().All(c.Context)
 
 			table := tablewriter.NewWriter(os.Stdout)
 			table.SetHeader([]string{"ID", "Name", "Start Date"})
